@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Rol {
+  id     Int    @id @default(autoincrement())
+  nombre String @db.VarChar(255)
+  User   User[]
+}
+
+model User {
+  id           Int          @id @default(autoincrement())
+  nombre       String       @db.VarChar(255)
+  cedula       String       @unique
+  estado Boolean      @default(true)
+  email        String       @unique
+  telefono     String       @unique
+  password     String
+  rolId        Int
+  rol          Rol          @relation(fields: [rolId], references: [id])
+  Events       Events?      @relation(fields: [eventsId], references: [id])
+  eventsId     Int?
+  Asistencia   Asistencia[]
+}
+
+model Events {
+  id          Int          @id @default(autoincrement())
+  nombre      String       @db.VarChar(255)
+  descripcion String       @db.Text
+  fecha       DateTime
+  hora        String       @db.VarChar(255)
+  lugar       String       @db.VarChar(255)
+  estado      Boolean      @default(false)
+  User        User[]
+  Asistencia  Asistencia[]
+}
+
+// * Tabla intermedia de asistencia para los eventos
+model Asistencia {
+  id      Int      @id @default(autoincrement())
+  userId  Int
+  eventId Int
+  //fecha y hora de asistencia
+  fecha   DateTime
+  hora    String   @db.VarChar(255)
+
+  User   User   @relation(fields: [userId], references: [id])
+  Events Events @relation(fields: [eventId], references: [id])
+}
