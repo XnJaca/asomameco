@@ -1,48 +1,22 @@
-import { Button, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import React from 'react';
+// import UserCreate from "../features/users/UserCreate";
+// Importa otros componentes según sea necesario
 
-const users = [
-  { id: 1, name: 'John Doe', email: 'john@example.com' },
-  { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
-  // Agrega más usuarios aquí
-];
+import { Grid } from "@mui/material";
+import UserList from "../features/users/userList";
 
-const ManageUsers: React.FC = () => {
+const ManageUsers = () => {
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        Manage Users
-      </Typography>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>{user.id}</TableCell>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>
-                  <Button variant="contained" color="primary" sx={{ mr: 2 }}>
-                    Edit
-                  </Button>
-                  <Button variant="contained" color="secondary">
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+    // <Grid container spacing={2}>
+    //   <h1>Manage Users</h1>
+    //   <UserList />
+    //   {/* <UserCreate /> */}
+    //   {/* Agrega otros componentes CRUD aquí */}
+    // </div>
+    <Grid container spacing={2} p={4}>
+      <Grid item xs={12}>
+        <UserList />
+      </Grid>
+    </Grid>
   );
 };
 

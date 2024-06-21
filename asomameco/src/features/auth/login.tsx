@@ -1,33 +1,67 @@
 import { Box, Button, Container, Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
+import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import * as yup from "yup";
 import { login } from "../../services/authService";
 import { login as loginAction } from "./authSlice";
 
 import img from "../../assets/Logo.jpg";
 
+const validationSchema = yup.object({
+  username: yup
+    .string()
+    .matches(/^\d+$/, "La cédula debe contener solo números")
+    .required("La cédula es requerida"),
+  password: yup.string().required("La contraseña es requerida"),
+});
+
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await login({ email: username, password });
-      localStorage.setItem("token", response.token); // Almacenar el token en localStorage
-      dispatch(loginAction(response.user));
-      navigate("/");
-    } catch (error) {
-      console.error("Error during login:", error);
-      // Manejar el error adecuadamente, por ejemplo, mostrando un mensaje al usuario
-    }
-  };
+  const formik = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      const loginPromise = () => {
+        return new Promise((resolve, reject) => {
+          login({ email: values.username, password: values.password })
+            .then((response) => {
+              localStorage.setItem("token", response.token); // Almacenar el token en localStorage
+              dispatch(loginAction(response.user));
+              resolve(response);
+              navigate("/");
+            })
+            .catch((error) => {
+              console.error("Error during login:", error.response.data.error);
+              reject(
+                new Error(error.response?.data?.error || "Login failed 🤯")
+              );
+            });
+        });
+      };
+
+      toast.promise(loginPromise(), {
+        pending: "Logging in...",
+        success: "Login successful 👌",
+        error: {
+          render({ data }) {
+            return (data as Error).message;
+          },
+        },
+      });
+    },
+  });
 
   return (
     <Container component="main" maxWidth="xs">
+      <ToastContainer />
+
       <Box
         sx={{
           marginTop: 8,
@@ -50,19 +84,22 @@ const Login = () => {
             style={{ width: "100%", borderRadius: 30 }}
           />
         </Grid>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
             id="username"
-            label="Correo Electrónico"
+            label="Cédula"
             name="username"
             autoComplete="username"
             autoFocus
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+            helperText={formik.touched.username && formik.errors.username}
           />
           <TextField
             variant="outlined"
@@ -74,8 +111,11 @@ const Login = () => {
             type="password"
             id="password"
             autoComplete="current-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
           />
           <Button
             type="submit"
