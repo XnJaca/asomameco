@@ -1,7 +1,9 @@
 import {
+  Campaign,
+  Dashboard,
   LogoutOutlined,
   Menu,
-  People as PeopleIcon,
+  People as PeopleIcon
 } from "@mui/icons-material";
 import {
   AppBar,
@@ -135,6 +137,20 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             >
               <ListItem
                 component={ButtonBase}
+                key="Home"
+                onClick={() => {
+                  navigate("/");
+                  toggleDrawer(); // Cerrar el menú al seleccionar una opción
+                }}
+              >
+                <ListItemIcon sx={{ justifyContent: "center", minWidth: 0 }}>
+                  <Dashboard sx={{ color: "primary.main" }} />
+                </ListItemIcon>
+                <ListItemText primary="HOME" />
+              </ListItem>
+
+              <ListItem
+                component={ButtonBase}
                 key="Usuarios"
                 onClick={() => {
                   navigate("/users");
@@ -218,6 +234,19 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             >
               <ListItem
                 component={ButtonBase}
+                key="Home"
+                onClick={() => {
+                  navigate("/");
+                  toggleDrawer(); // Cerrar el menú al seleccionar una opción
+                }}
+              >
+                <ListItemIcon sx={{ justifyContent: "center", minWidth: 0 }}>
+                  <Dashboard sx={{ color: "primary.main" }} />
+                </ListItemIcon>
+                <ListItemText primary="Inicio" />
+              </ListItem>
+              <ListItem
+                component={ButtonBase}
                 key="Usuarios"
                 onClick={() => {
                   navigate("/manage-users");
@@ -226,7 +255,20 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 <ListItemIcon sx={{ justifyContent: "center", minWidth: 0 }}>
                   <PeopleIcon sx={{ color: "primary.main" }} />
                 </ListItemIcon>
-                {isDrawerOpen && <ListItemText primary="USUARIOS" />}
+                {isDrawerOpen && <ListItemText primary="Usuarios" />}
+              </ListItem>
+
+              <ListItem
+                component={ButtonBase}
+                key="Eventos"
+                onClick={() => {
+                  navigate("/manage-events");
+                }}
+              >
+                <ListItemIcon sx={{ justifyContent: "center", minWidth: 0 }}>
+                  <Campaign sx={{ color: "primary.main" }} />
+                </ListItemIcon>
+                {isDrawerOpen && <ListItemText primary="Eventos" />}
               </ListItem>
               <ListItem
                 component={ButtonBase}

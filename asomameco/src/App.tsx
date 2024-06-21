@@ -8,6 +8,7 @@ import AuthProvider from "./components/authProvider";
 import DashboardLayout from "./components/dashboardLayout";
 import Login from "./features/auth/login";
 import Dashboard from "./pages/dashboard";
+import ManageEvents from "./pages/manageEvents";
 import ManageUsers from "./pages/manageUsers";
 import theme from "./theme/theme";
 const App = () => {
@@ -26,6 +27,14 @@ const App = () => {
                 element={
                   <DashboardLayout>
                     <ManageUsers />
+                  </DashboardLayout>
+                }
+              />
+              <Route
+                path="manage-events"
+                element={
+                  <DashboardLayout>
+                    <ManageEvents />
                   </DashboardLayout>
                 }
               />
