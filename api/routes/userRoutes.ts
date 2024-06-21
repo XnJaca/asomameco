@@ -4,7 +4,7 @@ import { authenticateToken } from '../middleware/authMiddleware';
 const router = Router();
 
 router.get('/', authenticateToken, getUsers);
-router.post('/', authenticateToken, createUser);
+router.post('/', createUser);
 router.put('/:id', updateUser);
 
 export const userRouter = router;

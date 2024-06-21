@@ -20,18 +20,18 @@ model Rol {
 }
 
 model User {
-  id           Int          @id @default(autoincrement())
-  nombre       String       @db.VarChar(255)
-  cedula       String       @unique
-  estado Boolean      @default(true)
-  email        String       @unique
-  telefono     String       @unique
-  password     String
-  rolId        Int
-  rol          Rol          @relation(fields: [rolId], references: [id])
-  Events       Events?      @relation(fields: [eventsId], references: [id])
-  eventsId     Int?
-  Asistencia   Asistencia[]
+  id         Int          @id @default(autoincrement())
+  nombre     String       @db.VarChar(255)
+  cedula     String       @unique
+  estado     Boolean      @default(true)
+  email      String
+  telefono   String       @unique
+  password   String
+  rolId      Int
+  rol        Rol          @relation(fields: [rolId], references: [id])
+  Events     Events?      @relation(fields: [eventsId], references: [id])
+  eventsId   Int?
+  Asistencia Asistencia[]
 }
 
 model Events {

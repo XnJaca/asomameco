@@ -10,26 +10,34 @@ const prisma = new PrismaClient();
 const SECRET_KEY = process.env.SECRET_KEY || 'your_secret_key';
 
 export const login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    console.log('login');
+
+    const { user, password } = req.body;
 
     try {
-        const user = await prisma.user.findUnique({
-            where: { email },
+        const userAuth = await prisma.user.findFirst({
+            include: {
+                rol: true,
+            },
+            where: { cedula: user },
         });
 
-        if (!user) {
+        if (!userAuth) {
             return res.status(401).json({ error: 'Credenciales incorrectas' });
         }
 
-        const isPasswordValid = bcrypt.compareSync(password, user.password);
+        const isPasswordValid = bcrypt.compareSync(password, userAuth.password);
 
         if (!isPasswordValid) {
             return res.status(401).json({ error: 'Credenciales incorrectas' });
         }
 
-        const token = jwt.sign({ userId: user.id }, SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: userAuth.id }, SECRET_KEY, { expiresIn: '1h' });
 
-        return res.status(200).json({ token });
+        return res.status(200).json({
+            data: userAuth,
+            token,
+        });
     } catch (error) {
         console.log(error);
 

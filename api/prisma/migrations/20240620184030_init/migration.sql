@@ -19,7 +19,6 @@ CREATE TABLE `User` (
     `eventsId` INTEGER NULL,
 
     UNIQUE INDEX `User_cedula_key`(`cedula`),
-    UNIQUE INDEX `User_email_key`(`email`),
     UNIQUE INDEX `User_telefono_key`(`telefono`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

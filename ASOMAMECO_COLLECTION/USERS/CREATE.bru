@@ -7,15 +7,26 @@ meta {
 post {
   url: {{URL}}users
   body: json
-  auth: none
+  auth: bearer
+}
+
+headers {
+  Authorization: {{TOKEN}}
+}
+
+auth:bearer {
+  token: {{TOKEN}}
 }
 
 body:json {
   {
-    "nombre": "Asomameco Admin",
-    "cedula": "123456789",
-    "email": "asoadmin.meco@example.com",
-    "password": "123",
-    "telefono": "85082921",
-    "rolId": 1}
+      "nombre": "RETANA BONILLA ALFREDO",
+      "cedula": "111111250",
+      "estado": false,
+      "email": "1ab@aso.co.cr",
+      "telefono": "8888-88-227",
+      "password": "123",
+      "rolId": 2,
+      "eventsId": null
+    }
 }

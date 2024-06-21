@@ -1,0 +1,83 @@
+asomameco
+├─ ASOMAMECO_COLLECTION
+│  ├─ AUTH
+│  │  └─ LOGIN.bru
+│  ├─ USERS
+│  │  ├─ CREATE.bru
+│  │  ├─ GET ALL.bru
+│  │  └─ PUT.bru
+│  ├─ bruno.json
+│  └─ environments
+│     └─ ASOMAMECO_ENV.bru
+├─ api
+│  ├─ .env
+│  ├─ .gitignore
+│  ├─ controller
+│  │  ├─ authController.ts
+│  │  └─ userController.ts
+│  ├─ index.ts
+│  ├─ middleware
+│  │  └─ authMiddleware.ts
+│  ├─ nodemon.json
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ prisma
+│  │  ├─ migrations
+│  │  │  ├─ 20240613021456_init
+│  │  │  │  └─ migration.sql
+│  │  │  └─ migration_lock.toml
+│  │  └─ schema.prisma
+│  ├─ routes
+│  │  ├─ authRoutes.ts
+│  │  └─ userRoutes.ts
+│  ├─ services
+│  │  └─ userService.ts
+│  ├─ tsconfig.json
+│  └─ yarn.lock
+└─ asomameco
+   ├─ .DS_Store
+   ├─ .env
+   ├─ .eslintrc.cjs
+   ├─ .gitignore
+   ├─ README.md
+   ├─ index.html
+   ├─ package-lock.json
+   ├─ package.json
+   ├─ public
+   │  └─ vite.svg
+   ├─ src
+   │  ├─ .DS_Store
+   │  ├─ App.css
+   │  ├─ App.tsx
+   │  ├─ api
+   │  │  └─ axios.ts
+   │  ├─ app
+   │  │  └─ store.ts
+   │  ├─ assets
+   │  │  ├─ Logo.jpg
+   │  │  ├─ Logolg.png
+   │  │  └─ react.svg
+   │  ├─ components
+   │  │  ├─ authProvider.tsx
+   │  │  ├─ dashboardLayout.tsx
+   │  │  └─ mainCard.tsx
+   │  ├─ features
+   │  │  └─ auth
+   │  │     ├─ authSlice.ts
+   │  │     └─ login.tsx
+   │  ├─ index.css
+   │  ├─ main.tsx
+   │  ├─ pages
+   │  │  ├─ dashboard.tsx
+   │  │  ├─ home.tsx
+   │  │  └─ manageUsers.tsx
+   │  ├─ services
+   │  │  └─ authService.ts
+   │  ├─ theme
+   │  │  └─ theme.ts
+   │  ├─ utils
+   │  └─ vite-env.d.ts
+   ├─ tsconfig.json
+   ├─ tsconfig.node.json
+   ├─ vite.config.ts
+   └─ yarn.lock

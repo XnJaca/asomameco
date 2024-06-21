@@ -40,6 +40,8 @@ export const createUser = async (req: Request, res: Response) => {
             data: newUser,
         });
     } catch (error) {
+        console.log('error', error);
+
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
